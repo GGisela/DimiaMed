@@ -1,0 +1,76 @@
+<div class="dashboard">
+
+  <!-- ── Header teal ── -->
+  <div class="dash-header">
+    <p class="greeting">{{ saludo }}</p>
+    <h1 class="patient-name">{{ nombrePaciente }} 👋</h1>
+
+    <div class="compliance-card">
+      <p class="compliance-label">ESTADO DE COMPLIANCE</p>
+      <div class="compliance-row">
+        <span class="compliance-icon">✅</span>
+        <span class="compliance-status">Apto</span>
+      </div>
+      <p class="compliance-sub">Certificado vigente hasta 22/03/2025</p>
+    </div>
+  </div>
+
+  <!-- ── White content sheet ── -->
+  <div class="dash-content">
+
+    <!-- Quick actions 2x2 -->
+    <div class="quick-grid">
+      <a routerLink="/solicitar-turno" class="quick-card">
+        <span class="quick-card__icon quick-card__icon--blue">📅</span>
+        <p class="quick-card__title">Mi próximo turno</p>
+        <p class="quick-card__sub">Ver detalle</p>
+      </a>
+      <a routerLink="/solicitar-turno" class="quick-card">
+        <span class="quick-card__icon quick-card__icon--teal">🏥</span>
+        <p class="quick-card__title">Buscar clínica</p>
+        <p class="quick-card__sub">Turnos disponibles</p>
+      </a>
+      <a href="#" class="quick-card" (click)="$event.preventDefault()">
+        <span class="quick-card__icon quick-card__icon--gray">📄</span>
+        <p class="quick-card__title">Mis certificados</p>
+        <p class="quick-card__sub">3 documentos</p>
+      </a>
+      <a routerLink="/notificaciones" class="quick-card">
+        <span class="quick-card__icon quick-card__icon--yellow">🔔</span>
+        <p class="quick-card__title">Notificaciones</p>
+        <p class="quick-card__sub">2 nuevas</p>
+      </a>
+    </div>
+
+    <!-- Próximo examen -->
+    <p class="section-label">PRÓXIMO EXAMEN</p>
+    <div class="examen-card">
+      <div class="examen-card__left">
+        <div class="examen-icon">⏰</div>
+        <div>
+          <p class="examen-title">Periódico anual <span class="badge-soon">vence pronto</span></p>
+          <p class="examen-date">22 de marzo de 2025 · en 3 meses</p>
+        </div>
+      </div>
+      <a routerLink="/solicitar-turno" class="btn-examen">Sacar turno ahora</a>
+    </div>
+
+    <!-- Actividad reciente -->
+    <p class="section-label">ACTIVIDAD RECIENTE</p>
+    <div class="activity-list">
+      <div class="activity-item" *ngFor="let t of turnosRecientes">
+        <div class="activity-item__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+        </div>
+        <div class="activity-item__body">
+          <p class="activity-item__title">{{ t.tipo }}</p>
+          <p class="activity-item__sub">{{ t.clinica }} · {{ t.fecha }}</p>
+        </div>
+        <span class="badge" [ngClass]="estadoBadge(t.estado)">{{ estadoLabel(t.estado) }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
