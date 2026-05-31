@@ -29,8 +29,13 @@ export class ClinicaService {
     return this.http.get<Clinica[]>(url, { params }).pipe(
       tap(data => console.log('[ClinicaService] ✅ API real respondió:', data)),
       catchError(err => {
-        console.warn('[ClinicaService] ⚠️ API no disponible, usando datos mock:', err.message);
-        return of(this.getMockClinicas().filter(c => c.zona === zona));
+        console.warn('[ClinicaService] ⚠️ API no disponible, filtrando datos para la zona:', zona);
+        const zonaBusqueda = zona.toLowerCase().trim().replace('-','-');
+
+        return of (this.getMockClinicas().filter(c =>{
+          const zonaClinica= c.zona.toLowerCase().trim().replace('-','-');
+          return zonaClinica === zonaBusqueda;
+        }))
       })
     );
   }
@@ -55,8 +60,25 @@ export class ClinicaService {
       {
         id: 4, nombre: 'Centro Diagnóstico Oeste', direccion: 'Av. Gaona 2100, Flores',
         zona: 'CABA — Zona Oeste', horarios: 'Lun–Sáb 8–16h',
-        habilitadaSrt: false, turnosDisponibles: 8, calificacion: 3.9
+        habilitadaSrt: true, turnosDisponibles: 8, calificacion: 3.9
+      },
+      {
+        id: 5, nombre: 'Centro Médico GBA Norte', direccion: 'Av. Maipú 1900, San Isidro',
+        zona: 'GBA Norte', horarios: 'Lun–Vie 8–17h',
+        habilitadaSrt: true, turnosDisponibles: 5, calificacion: 4.6
+      },
+      {
+        id: 6, nombre: 'Clínica Del Sol', direccion: 'Mitre 450, Quilmes',
+        zona: 'GBA Sur', horarios: 'Lun–Sáb 7–20h',
+        habilitadaSrt: true, turnosDisponibles: 3, calificacion: 4.4
+      },
+      {
+        id: 7, nombre: 'Sanatorio Regional Oeste', direccion: 'Belgrano 250, Morón',
+        zona: 'GBA Oeste', horarios: '24 Horas',
+        habilitadaSrt: true, turnosDisponibles: 12, calificacion: 4.1
       }
+
+
     ];
   }
 }
