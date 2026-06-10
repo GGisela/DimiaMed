@@ -16,16 +16,14 @@ export class LayoutComponent {
   constructor(public auth: AuthService) {}
 
   get initials(): string {
-    const candidato = this.auth.currentCandidato();
-    if (candidato) {
-      return `${candidato.apellido.charAt(0)}${candidato.nombre.charAt(0)}`.toUpperCase();
-    }
-    return 'U';
+    const empresa = this.auth.currentEmpresa();
+    return empresa?.nombre 
+    ? empresa.nombre.charAt(0).toUpperCase(): 'T';
   }
 
   get fullName(): string {
-    const candidato = this.auth.currentCandidato();
-    return candidato ? `${candidato.nombre} ${candidato.apellido}` : 'Paciente';
+    const empresa = this.auth.currentEmpresa();
+    return empresa?.nombre ?? 'Tecno Arg S.A';
   }
 
   toggleSidebar(): void {
