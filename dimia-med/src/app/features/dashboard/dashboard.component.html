@@ -1,76 +1,96 @@
 <div class="dashboard">
 
-  <!-- ── Header teal ── -->
+  <!-- ───────────────────────────────────────── Header ──────────────────────────────────────────────── -->
   <div class="dash-header">
     <p class="greeting">{{ saludo }}</p>
-    <h1 class="patient-name">{{ nombrePaciente }} 👋</h1>
+    <h1 class="company-name">{{ nombreEmpresa }} 👋</h1>
 
+    <div class="dash-container">
     <div class="compliance-card">
-      <p class="compliance-label">ESTADO DE COMPLIANCE</p>
+      <p class="compliance-label">TOTAL EMPLEADOS</p>
       <div class="compliance-row">
+        <div class="compliance-container">
+        <span class="compliance-number">142</span>
+        <span class="compliance-icon">👥</span>
+        </div>
+        <span class="compliance-detail">+8 este mes</span>
+      </div>
+    </div>
+    <div class="compliance-card">
+      <p class="compliance-label">APTOS</p>
+      <div class="compliance-row">
+        <div class="compliance-container">
+        <span class="compliance-number">127</span>
         <span class="compliance-icon">✅</span>
-        <span class="compliance-status">Apto</span>
+        </div>
+        <span class="compliance-detail">89.4% de cobertura</span>
       </div>
-      <p class="compliance-sub">Certificado vigente hasta 22/03/2025</p>
+      </div>
+      <div class="compliance-card">
+        <p class="compliance-label">PENDIENTES</p>
+        <div class="compliance-row">
+          <div class="compliance-container">
+            <span class="compliance-number">15</span>
+            <span class="compliance-icon">⚠️</span>
+          </div>
+          <span class="compliance-detail">requieren de atención</span>
+        </div>
+      </div>
     </div>
   </div>
+  
+  <!-- ───────────────────────────────────────── Employee section ──────────────────────────────────────────────── -->
+  <div class="employees-section">   
 
-  <!-- ── White content sheet ── -->
-  <div class="dash-content">
+    <div class= "section-header">
+      <h2 class="section-title">Empleados recientes</h2>
+    <!-- ──────────────────── Searcher ──────────────────── -->
+    <div class="search-request-container">
+    <div class="buscador">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /> <!-- icono de buscador sacado de HeroIcons -->
+    </svg>
 
-    <!-- Quick actions 2x2 -->
-    <div class="quick-grid">
-      <a routerLink="/solicitar-turno" class="quick-card">
-        <span class="quick-card__icon quick-card__icon--blue">📅</span>
-        <p class="quick-card__title">Mi próximo turno</p>
-        <p class="quick-card__sub">Ver detalle</p>
-      </a>
-      <a routerLink="/solicitar-turno" class="quick-card">
-        <span class="quick-card__icon quick-card__icon--teal">🏥</span>
-        <p class="quick-card__title">Buscar clínica</p>
-        <p class="quick-card__sub">Turnos disponibles</p>
-      </a>
-      <a href="#" class="quick-card" (click)="$event.preventDefault()">
-        <span class="quick-card__icon quick-card__icon--gray">📄</span>
-        <p class="quick-card__title">Mis certificados</p>
-        <p class="quick-card__sub">3 documentos</p>
-      </a>
-      <a routerLink="/notificaciones" class="quick-card">
-        <span class="quick-card__icon quick-card__icon--yellow">🔔</span>
-        <p class="quick-card__title">Notificaciones</p>
-        <p class="quick-card__sub">2 nuevas</p>
-      </a>
-    </div>
-
-    <!-- Próximo examen -->
-    <p class="section-label">PRÓXIMO EXAMEN</p>
-    <div class="examen-card">
-      <div class="examen-card__left">
-        <div class="examen-icon">⏰</div>
-        <div>
-          <p class="examen-title">Periódico anual <span class="badge-soon">vence pronto</span></p>
-          <p class="examen-date">22 de marzo de 2025 · en 3 meses</p>
-        </div>
+        <input
+          class="buscador_input"
+          type="text"
+          placeholder="Buscar empleado..."
+          [ngModel]="searcher()"
+          (ngModelChange)="onSearch($event)"
+        />
+        
       </div>
-      <a routerLink="/solicitar-turno" class="btn-examen">Sacar turno ahora</a>
-    </div>
-
-    <!-- Actividad reciente -->
-    <p class="section-label">ACTIVIDAD RECIENTE</p>
-    <div class="activity-list">
-      <div class="activity-item" *ngFor="let t of turnosRecientes">
-        <div class="activity-item__icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
-        </div>
-        <div class="activity-item__body">
-          <p class="activity-item__title">{{ t.tipo }}</p>
-          <p class="activity-item__sub">{{ t.clinica }} · {{ t.fecha }}</p>
-        </div>
-        <span class="badge" [ngClass]="estadoBadge(t.estado)">{{ estadoLabel(t.estado) }}</span>
+      <div class="request-container">
+      <button class="request-btn">Solicitar turno</button>
       </div>
-    </div>
+      </div>
+      </div>
+      <!-- ──────────────────── Table ──────────────────── -->
 
-  </div>
+    <table class="employee-table">
+      <thead>
+        <tr>
+          <th>Empleado</th>
+          <th>DNI</th>
+          <th>Tipo de examen</th>
+          <th>Clínica</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (empleado of empleadosFiltrados(); track empleado.dni) { <!-- el track nos ayuda a identificar cada fila por el DNI, se realiza el for para que recorra el array de empleados -->
+        <tr>
+          <td class="col-nombre">{{ empleado.nombre}}</td>
+          <td class="col-dni">{{ empleado.dni }}</td>
+          <td class="col-tipoExamen">{{empleado.tipoExamen}}</td>
+          <td class="col-clinica">{{empleado.clinica}}</td>
+          <td class="col-estado">{{empleado.estado}}</td>
+          <td class="col-accion">
+            <button class="btn btn-primary">Ver detalles</button>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
 </div>

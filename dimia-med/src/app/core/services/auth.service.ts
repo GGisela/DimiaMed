@@ -4,17 +4,19 @@ import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Candidato, LoginRequest, LoginResponse, Usuario } from '../models/user.model';
+import { Candidato, LoginRequest, LoginResponse, Usuario, Empresa } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly TOKEN_KEY = 'dimia_token';
   private readonly USER_KEY = 'dimia_user';
+  private readonly EMPRESA_KEY = 'dimia_empresa';
   private readonly CANDIDATO_KEY = 'dimia_candidato';
 
   isLoggedIn = signal(this.hasToken());
   currentUser = signal<Usuario | null>(this.getStoredUser());
   currentCandidato = signal<Candidato | null>(this.getStoredCandidato());
+  currentEmpresa = signal<Empresa | null>(this.getStoredEmpresa());
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,17 +28,9 @@ export class AuthService {
 
   private mockLogin(credentials: LoginRequest): Observable<LoginResponse> {
     const mockUsers: Record<string, LoginResponse> = {
-      'paciente@test.com': {
-        token: 'mock-jwt-token-candidato-123',
-        usuario: { id: 1, email: 'paciente@test.com', rol: 'CANDIDATO' },
-        candidato: {
-          id: 1,
-          nombre: 'Rodríguez',
-          apellido: 'Carlos',
-          dni: '28.104.556',
-          zonaResidencia: 'CABA — Zona Norte',
-          usuario: { id: 1, email: 'paciente@test.com', rol: 'CANDIDATO' }
-        }
+      'rrhh@test.com': {
+        token: 'mock-jwt-token-empresa-123',
+        usuario: { id: 1, email: 'rrhh@test.com', rol: 'EMPRESA' },
       }
     };
 
@@ -58,6 +52,7 @@ export class AuthService {
     this.isLoggedIn.set(true);
     this.currentUser.set(response.usuario);
     this.currentCandidato.set(response.candidato ?? null);
+
   }
 
   logout(): void {
@@ -87,4 +82,9 @@ export class AuthService {
     const raw = localStorage.getItem(this.CANDIDATO_KEY);
     return raw ? JSON.parse(raw) : null;
   }
+
+  private getStoredEmpresa(): Empresa | null {
+  const raw = localStorage.getItem(this.EMPRESA_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
 }

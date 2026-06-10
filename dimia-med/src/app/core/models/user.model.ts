@@ -25,3 +25,10 @@ export interface LoginResponse {
   usuario: Usuario;
   candidato?: Candidato;
 }
+
+export interface Empresa {
+  id: number; 
+  usuario: Usuario; 
+  nombre: string;
+  rol: Empresa;
+}
