@@ -32,11 +32,24 @@ export class SolicitarTurnoComponent implements OnInit {
 
   tiposExamen = [
     { value: 'preocupacional', label: 'Preocupacional' },
-    { value: 'periodico', label: 'Periódico anual' },
+    { value: 'períodico', label: 'Períodico' },
     { value: 'egreso', label: 'Egreso' }
   ];
 
+  empleados = [
+    { value: 'empleado1', label: 'Rodriguez, Carlos · DNI 28.104.556 ' },
+    { value: 'empleado2', label: 'López, Valeria · DNI 35.892.341' },
+    { value: 'empleado3', label: 'Fernández, Ana · DNI 40.115.772' }
+  ];
+
+  estado = [
+    { value: 'apto', label: '·Apto' },
+    { value: 'pendiente', label: '·Pendiente' },
+    { value: 'sin-turno', label: '·Sin Turno' }
+  ]
+
   form = {
+    empleado: '',
     tipoExamen: 'preocupacional',
     fechaPreferida: this.getDefaultDate(),
     zona: '',
@@ -48,6 +61,7 @@ export class SolicitarTurnoComponent implements OnInit {
     private turnoService: TurnoService,
     private auth: AuthService,
     private router: Router
+
   ) {}
 
   ngOnInit(): void {
@@ -76,11 +90,14 @@ export class SolicitarTurnoComponent implements OnInit {
     this.clinicaSeleccionada = clinica;
   }
 
+  cancelar() {
+  this.router.navigate(['/dashboard']);
+  }
+
   confirmar(): void {
     if (!this.clinicaSeleccionada) return;
     const candidato = this.auth.currentCandidato();
     if (!candidato) return;
-
     this.submitting.set(true);
     this.turnoService.solicitarTurno(
       {
@@ -101,6 +118,8 @@ export class SolicitarTurnoComponent implements OnInit {
       error: () => this.submitting.set(false)
     });
   }
+
+
 
   getDefaultDate(): string {
     const d = new Date();

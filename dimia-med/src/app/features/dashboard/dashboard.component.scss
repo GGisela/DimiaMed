@@ -155,14 +155,14 @@
     .buscador_input::placeholder {
       color: #6b7280;
     }
-
+    
     .buscador_input:focus {
       border-color: #0d7a8a;
     }
   }
 }
 
-// ────────── Request btn ──────────
+// ────────── Buttons ──────────
 .request-btn {
   padding: 8px 16px;
   border-radius: 8px;
@@ -170,14 +170,31 @@
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: #0d7a8a 0.2s, color 0.2s;
+  transition: 0.2s, color 0.2s;
   border: none;
   background: #0d7a8a;
   color: #ffffff;
-
+  
   &:hover { /* El & en SCSS, sirve para evitar repetir el nombre de la clase y para crear variantes de una forma más limpia */
     background: #074e5a;
   }
+}
+
+.detail-btn {
+  background: rgb(240, 244, 247);
+  color: rgb(92, 112, 124);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s, color 0.2s;
+}
+
+.detail-btn:hover {
+  background: rgb(204, 212, 217);
 }
 
 // ─────────────────── Table ───────────────────
@@ -230,33 +247,56 @@
   color: #6b7280;
 }
 
-// ─────────────────── Button ───────────────────
-.btn {
-  padding: 7px 16px;
-  border-radius: 8px;
-  font-size: 0.8rem;
+.preocupacional {
+  background: rgb(227, 242, 253);
+  color: rgb(29, 107, 194);
+  padding: 4px 12px;
+  border-radius: 10px;
   font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.2s, color 0.2s;
-  border: none;
+  align-items: center;
+}
 
-  &-primary {
-    background: #0d7a8a;
-    color: #ffffff;
+.períodico {
+  background: rgb(243, 229, 245);
+  color: rgb(106, 27, 154);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
 
-    &:hover {
-      background: #074e5a;
-    }
-  }
+.egreso {
+  background: rgb(255, 243, 224);
+  color: rgb(233, 103, 31);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
 
-  &-outline {
-    background: #ffffff;
-    border: 1.5px solid #d1d5db;
-    color: #374151;
+.apto {
+  background: rgb(232, 245, 233);
+  color: rgb(50, 127, 54);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
 
-    &:hover {
-      background: #f3f4f6;
-    }
-  }
+.pendiente {
+  background: rgb(255, 249, 196);
+  color: rgb(246, 137, 37);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.sin-turno {
+  background: rgb(234, 244, 251);
+  color: rgb(23, 97, 131);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
 }

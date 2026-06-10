@@ -83,11 +83,38 @@
         <tr>
           <td class="col-nombre">{{ empleado.nombre}}</td>
           <td class="col-dni">{{ empleado.dni }}</td>
-          <td class="col-tipoExamen">{{empleado.tipoExamen}}</td>
+          <td>
+            <span
+              class="exam-type"
+              [ngClass]="{
+                'preocupacional': empleado.tipoExamen === 'Preocupacional',
+                'períodico': empleado.tipoExamen === 'Períodico',
+                'egreso': empleado.tipoExamen === 'Egreso'
+              }"
+            >
+              {{ empleado.tipoExamen }}
+            </span>
+          </td>
           <td class="col-clinica">{{empleado.clinica}}</td>
-          <td class="col-estado">{{empleado.estado}}</td>
-          <td class="col-accion">
-            <button class="btn btn-primary">Ver detalles</button>
+          <td>
+            <span
+              class="status"
+              [ngClass]="{
+                'apto': empleado.estado === 'Apto',
+                'pendiente': empleado.estado === 'Pendiente',
+                'sin-turno': empleado.estado === 'Sin Turno',
+              }"
+            >
+              {{ empleado.estado }}
+            </span>
+          </td>
+          <td>
+            <button
+              [ngClass]="empleado.estado === 'Apto' ? 'detail-btn' : 'request-btn'"
+              (click)="empleado.estado !== 'Apto' && asignarTurno()"
+            >
+              {{ empleado.estado === 'Apto' ? 'Ver detalle' : 'Asignar turno' }}
+            </button>
           </td>
         </tr>
       }

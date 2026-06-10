@@ -15,17 +15,22 @@
   <div class="card">
     <div class="card__header">
       <span class="card__icon">📋</span>
-      <h2 class="card__title">Datos del paciente y examen</h2>
+      <h2 class="card__title">Datos del empleado y examen</h2>
     </div>
     <div class="card__body">
       <div class="form-grid">
+          <div class="form-group">
+          <label class="form-label">Empleado</label>
+          <select class="form-control" [(ngModel)]="form.empleado" name="empleado">
+            <option *ngFor="let e of empleados" [value]="e.value">{{ e.label }}</option>
+          </select>
+        </div>
         <div class="form-group">
           <label class="form-label">Tipo de Examen</label>
           <select class="form-control" [(ngModel)]="form.tipoExamen" name="tipoExamen">
             <option *ngFor="let t of tiposExamen" [value]="t.value">{{ t.label }}</option>
           </select>
         </div>
-
         <div class="form-group">
           <label class="form-label">Fecha preferida</label>
           <input
@@ -36,8 +41,7 @@
             [min]="getDefaultDate()"
           />
         </div>
-
-        <div class="form-group form-group--full">
+        <div class="form-group">
           <label class="form-label">Zona de búsqueda</label>
           <select class="form-control" [(ngModel)]="form.zona" name="zona" (change)="buscarClinicas()">
             <option *ngFor="let z of zonas" [value]="z">{{ z }}</option>
@@ -51,7 +55,7 @@
             [(ngModel)]="form.observaciones"
             name="observaciones"
             rows="2"
-            placeholder="Ej: requiero planta baja, alergias conocidas..."
+            placeholder="Ej: empleado con movilidad reducida, requiere de planta baja..."
           ></textarea>
         </div>
       </div>
@@ -148,6 +152,8 @@
     <div class="confirm-bar__hint" *ngIf="!clinicaSeleccionada">
       Seleccioná una clínica para continuar
     </div>
+      <button class="btn-cancel" (click)="cancelar()" [disabled]="!canConfirm">Cancelar</button>
+
     <button class="btn-confirm" (click)="confirmar()" [disabled]="!canConfirm">
       <span *ngIf="!submitting()">Confirmar turno →</span>
       <span *ngIf="submitting()">Procesando...</span>

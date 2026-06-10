@@ -24,10 +24,6 @@ export const routes: Routes = [
         path: 'confirmacion',
         loadComponent: () => import('./features/confirmacion/confirmacion.component').then(m => m.ConfirmacionComponent)
       },
-      {
-        path: 'notificaciones',
-        loadComponent: () => import('./features/notificaciones/notificaciones.component').then(m => m.NotificacionesComponent)
-      }
     ]
   },
   { path: '**', redirectTo: 'dashboard' }

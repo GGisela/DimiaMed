@@ -79,23 +79,19 @@
   align-items: center;
   gap: 0.75rem;
 
-  &__icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
   &__text {
     color: #ffffff;
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
+}
+
+.logo_image {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: contain;
 }
 
 .alert {

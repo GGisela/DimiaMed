@@ -6,6 +6,7 @@ import {signal} from '@angular/core';
 import { Empleado } from '../../core/models/empleado.model';
 import { computed } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 
 export class DashboardComponent {
   searcher = signal (''); /* Variable que observa para detectar cambios automáticamente y guarda un valor  */
@@ -33,7 +35,8 @@ export class DashboardComponent {
     return 'Buenas noches,';
   }
 
-  constructor (public auth: AuthService) {}
+  constructor(private auth: AuthService, private router:Router) {}
+  
 
   get nombreEmpresa(): string {
     const e = this.auth.currentEmpresa();
@@ -59,11 +62,13 @@ export class DashboardComponent {
     console.log('Solicitar turno'); 
   }
 
-  asignarTurno(empleado: Empleado) {
-    console.log(`Asignar turno a ${empleado.nombre}`);
-  }
+  asignarTurno() {
+  this.router.navigate(['/solicitar-turno'])
+  };
 
   verDetalle(empleado: Empleado) {
     console.log(`Ver detalle de ${empleado.nombre}`);
   }
+  
+
 }
