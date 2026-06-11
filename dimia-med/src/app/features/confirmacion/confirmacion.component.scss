@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-/* Success header */
+/* -------------------------- Success Header -------------------------- */
 .success-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -43,7 +43,7 @@
   margin: 0;
 }
 
-/* Detail card */
+/* -------------------------- Detail Card -------------------------- */
 .detail-card {
   width: 100%;
   background: #ffffff;
@@ -54,7 +54,7 @@
   margin-bottom: 2rem;
   animation: slideUp 0.35s ease 0.15s both;
 
-  &__header {
+  &_header { /* No hereda pero sí reutiliza el nombre de "detail-card" */
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -63,7 +63,7 @@
     background: #f8fafc;
   }
 
-  &__title {
+  &_title { /* No hereda pero sí reutiliza el nombre de "detail-card" */
     font-size: 1rem;
     font-weight: 600;
     color: #0f172a;
@@ -71,14 +71,14 @@
   }
 }
 
-@keyframes slideUp {
+@keyframes slideUp { /* Animación de deslizamiento hacia arriba */
   from { transform: translateY(16px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
 .detail-icon { font-size: 1.1rem; }
 
-/* Rows */
+/* -------------------------- Rows -------------------------- */
 .detail-rows {
   padding: 0.5rem 0;
 }
@@ -89,10 +89,6 @@
   justify-content: space-between;
   padding: 0.9rem 1.5rem;
   gap: 1rem;
-
-  & + & {
-    border-top: 1px solid #f8fafc;
-  }
 }
 
 .detail-label {
@@ -151,7 +147,7 @@
   font-weight: 500;
 }
 
-/* Actions */
+/* -------------------------- Actions -------------------------- */
 .actions {
   display: flex;
   align-items: center;
@@ -187,7 +183,7 @@
   &:hover { border-color: #94a3b8; }
 }
 
-/* Cancel */
+/* -------------------------- Cancel -------------------------- */
 .cancel-area {
   margin-top: 0.5rem;
   animation: slideUp 0.35s ease 0.3s both;

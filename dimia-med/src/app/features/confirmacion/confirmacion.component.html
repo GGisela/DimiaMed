@@ -1,4 +1,4 @@
-<div class="page" *ngIf="turno">
+<div class="page" *ngIf="turno"> <!-- Solo se muestra si hay un turno confirmado -->
 
   <!-- Success header -->
   <div class="success-header">
@@ -13,9 +13,9 @@
 
   <!-- Detail card -->
   <div class="detail-card">
-    <div class="detail-card__header">
+    <div class="detail-card_header">
       <span class="detail-icon">📋</span>
-      <h2 class="detail-card__title">Detalle del turno</h2>
+      <h2 class="detail-card_title">Detalle del turno</h2>
     </div>
 
     <div class="detail-rows">
@@ -75,7 +75,7 @@
     </button>
   </div>
 
-  <!-- Cancelled state -->
+    <!-- Cancelled state -->
   <div class="cancelled-notice" *ngIf="cancelado">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>

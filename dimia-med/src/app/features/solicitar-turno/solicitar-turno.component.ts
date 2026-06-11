@@ -148,15 +148,20 @@ export class SolicitarTurnoComponent implements OnInit {
   
   }
 
-
-
   getDefaultDate(): string {
     const d = new Date();
     d.setDate(d.getDate() + 7);
     return d.toISOString().split('T')[0];
   }
 
-  get canConfirm(): boolean {
-    return !!this.clinicaSeleccionada && !!this.form.fechaPreferida && !this.submitting();
+  get canConfirm(): boolean { //Validación de botón "Confirmar turno"
+    return (
+      this.clinicaSeleccionada !== null && 
+      this.form.empleado !== '' &&
+      this.form.fechaPreferida !== '' &&
+      this.form.zona !== '' &&
+      !this.submitting()
+    )
   }
+
 }

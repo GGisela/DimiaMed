@@ -26,7 +26,6 @@ export class ConfirmacionComponent implements OnInit {
 
   cancelarTurno(): void {
     if (!this.turno) return;
-    // Replace with real API call: this.http.delete(`/api/turnos/${id}`)
     this.turno = { ...this.turno, estado: 'CANCELADO' };
     this.turnoService.turnoConfirmado.set(this.turno);
     this.cancelado = true;
