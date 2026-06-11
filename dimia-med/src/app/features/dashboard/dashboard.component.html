@@ -1,0 +1,123 @@
+<div class="dashboard">
+
+  <!-- ───────────────────────────────────────── Header ──────────────────────────────────────────────── -->
+  <div class="dash-header">
+    <p class="greeting">{{ saludo }}</p>
+    <h1 class="company-name">{{ nombreEmpresa }} 👋</h1>
+
+    <div class="dash-container">
+    <div class="compliance-card">
+      <p class="compliance-label">TOTAL EMPLEADOS</p>
+      <div class="compliance-row">
+        <div class="compliance-container">
+        <span class="compliance-number">142</span>
+        <span class="compliance-icon">👥</span>
+        </div>
+        <span class="compliance-detail">+8 este mes</span>
+      </div>
+    </div>
+    <div class="compliance-card">
+      <p class="compliance-label">APTOS</p>
+      <div class="compliance-row">
+        <div class="compliance-container">
+        <span class="compliance-number">127</span>
+        <span class="compliance-icon">✅</span>
+        </div>
+        <span class="compliance-detail">89.4% de cobertura</span>
+      </div>
+      </div>
+      <div class="compliance-card">
+        <p class="compliance-label">PENDIENTES</p>
+        <div class="compliance-row">
+          <div class="compliance-container">
+            <span class="compliance-number">15</span>
+            <span class="compliance-icon">⚠️</span>
+          </div>
+          <span class="compliance-detail">requieren de atención</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ───────────────────────────────────────── Seccion de empleados ──────────────────────────────────────────────── -->
+  <div class="employees-section">   
+
+    <div class= "section-header">
+      <h2 class="section-title">Empleados recientes</h2>
+    <!-- ──────────────────── Buscador ──────────────────── -->
+    <div class="search-request-container">
+    <div class="buscador">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /> <!-- icono de buscador sacado de HeroIcons -->
+    </svg>
+
+        <input
+          class="buscador_input"
+          type="text"
+          placeholder="Buscar empleado..."
+          [ngModel]="searcher()"
+          (ngModelChange)="onSearch($event)"
+        />
+        
+      </div>
+      <div class="request-container">
+      <button class="request-btn">Solicitar turno</button>
+      </div>
+      </div>
+      </div>
+      <!-- ──────────────────── Tabla ──────────────────── -->
+
+    <table class="employee-table">
+      <thead>
+        <tr>
+          <th>Empleado</th>
+          <th>DNI</th>
+          <th>Tipo de examen</th>
+          <th>Clínica</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (empleado of empleadosFiltrados(); track empleado.dni) { <!-- el track nos ayuda a identificar cada fila por el DNI, se realiza el for para que recorra el array de empleados -->
+        <tr>
+          <td class="col-nombre">{{ empleado.nombre}}</td>
+          <td class="col-dni">{{ empleado.dni }}</td>
+          <td>
+            <span
+              class="exam-type"
+              [ngClass]="{
+                'preocupacional': empleado.tipoExamen === 'Preocupacional',
+                'períodico': empleado.tipoExamen === 'Períodico',
+                'egreso': empleado.tipoExamen === 'Egreso'
+              }"
+            >
+              {{ empleado.tipoExamen }}
+            </span>
+          </td>
+          <td class="col-clinica">{{empleado.clinica}}</td>
+          <td>
+            <span
+              class="status"
+              [ngClass]="{
+                'apto': empleado.estado === 'Apto',
+                'pendiente': empleado.estado === 'Pendiente',
+                'sin-turno': empleado.estado === 'Sin Turno',
+              }"
+            >
+              {{ empleado.estado }}
+            </span>
+          </td>
+          <td>
+            <button
+              [ngClass]="empleado.estado === 'Apto' ? 'detail-btn' : 'request-btn'"
+              (click)="empleado.estado === 'Apto' ? verDetalle(empleado) : asignarTurno()"
+            >
+              {{ empleado.estado === 'Apto' ? 'Ver detalle' : 'Asignar turno' }}
+            </button>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+</div>

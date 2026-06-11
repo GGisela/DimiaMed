@@ -1,0 +1,163 @@
+<div class="page">
+  <!-- ──────────────────── Navegación superior ──────────────────── -->
+  <div class="breadcrumb">
+    <span class="breadcrumb__item">Dashboard</span>
+    <span class="breadcrumb__sep">›</span>
+    <span class="breadcrumb__item breadcrumb__item--active">Solicitar Turno</span>
+  </div>
+
+  <div class="page-header">
+    <h1 class="page-title">Solicitar Turno Médico</h1>
+    <p class="page-sub">Completá los datos y seleccioná una clínica disponible</p>
+  </div>
+
+  <!-- ──────────────────── Card datos  ──────────────────── -->
+  <div class="card">
+    <div class="card__header">
+      <span class="card__icon">📋</span>
+      <h2 class="card__title">Datos del empleado y examen</h2>
+    </div>
+    <div class="card__body">
+      <div class="form-grid">
+          <div class="form-group">
+          <label class="form-label">Empleado</label>
+          <select class="form-control" [(ngModel)]="form.empleado" name="empleado">
+            <option value="" disabled selected>Seleccione un empleado...</option>
+            <option *ngFor="let e of empleados" [value]="e.value">{{ e.label }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo de Examen</label>
+          <select class="form-control" [(ngModel)]="form.tipoExamen" name="tipoExamen">
+            <option *ngFor="let t of tiposExamen" [value]="t.value">{{ t.label }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha preferida</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="form.fechaPreferida"
+            name="fecha"
+            [min]="getDefaultDate()"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Zona de búsqueda</label>
+          <select class="form-control" [(ngModel)]="form.zona" name="zona" (change)="buscarClinicas()">
+            <option *ngFor="let z of zonas" [value]="z">{{ z }}</option>
+          </select>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label class="form-label">Observaciones <span class="optional">(opcional)</span></label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="form.observaciones"
+            name="observaciones"
+            rows="2"
+            placeholder="Ej: empleado con movilidad reducida, requiere de planta baja..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────── Lista de clínicas  ──────────────────── -->
+  <div class="section-header">
+    <h2 class="section-title">
+      <span class="section-icon">🏥</span>
+      Clínicas disponibles
+      <span class="badge-count" *ngIf="!loading()">· {{ clinicasFiltradas.length }} resultados</span>
+      <span class="badge-srt" *ngIf="!loading() && clinicasFiltradas.length > 0">· Hab. SRT verificada ✓</span>
+    </h2>
+    <button class="btn-search" (click)="buscarClinicas()" [disabled]="loading()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      Buscar
+    </button>
+  </div>
+
+  <div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Buscando clínicas disponibles...</p>
+  </div>
+
+  <div *ngIf="!loading() && clinicasFiltradas.length === 0" class="empty-state">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    <p>No se encontraron clínicas en esta zona.</p>
+  </div>
+
+  <div class="clinics-list" *ngIf="!loading()">
+    <div
+      class="clinic-card"
+      *ngFor="let c of clinicasFiltradas"
+      [class.clinic-card--selected]="clinicaSeleccionada?.id === c.id"
+      (click)="seleccionar(c)"
+    >
+      <div class="clinic-card__logo">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="currentColor" fill-opacity="0.12"/>
+          <path d="M14 8v12M8 14h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="clinic-card__body">
+        <div class="clinic-card__name-row">
+          <h3 class="clinic-card__name">{{ c.nombre }}</h3>
+          <span class="srt-badge" *ngIf="c.habilitadaSrt">✓ SRT</span>
+        </div>
+        <div class="clinic-card__meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            {{ c.direccion }}
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15,15"/>
+            </svg>
+            {{ c.horarios }}
+          </span>
+          <span class="meta-item" *ngIf="c.calificacion">
+            ★ {{ c.calificacion }}
+          </span>
+        </div>
+      </div>
+      <div class="clinic-card__slots">
+        <span class="slots-count" [class.slots-low]="(c.turnosDisponibles ?? 0) <= 2">
+          {{ c.turnosDisponibles }}
+        </span>
+        <span class="slots-label">turnos<br>disponibles</span>
+      </div>
+      <div class="clinic-card__check" *ngIf="clinicaSeleccionada?.id === c.id">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20,6 9,17 4,12"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────── Botón confirmar  ──────────────────── -->
+  <div class="confirm-bar" *ngIf="!loading()">
+    <div class="confirm-bar__info" *ngIf="clinicaSeleccionada">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f5c80" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>{{ clinicaSeleccionada.nombre }}</span>
+    </div>
+    <div class="confirm-bar__hint" *ngIf="!clinicaSeleccionada">
+      Seleccioná una clínica para continuar
+    </div>
+      <button class="btn-cancel" (click)="cancelar()" [disabled]="!canConfirm">Cancelar</button>
+
+    <button class="btn-confirm" (click)="confirmar()" [disabled]="!canConfirm">
+      <span *ngIf="!submitting()">Confirmar turno →</span>
+      <span *ngIf="submitting()">Procesando...</span>
+    </button>
+  </div>
+</div>

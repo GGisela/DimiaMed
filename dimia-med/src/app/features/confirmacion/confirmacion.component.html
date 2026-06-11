@@ -1,0 +1,85 @@
+<div class="page" *ngIf="turno"> <!-- Solo se muestra si hay un turno confirmado -->
+
+  <!-- Success header -->
+  <div class="success-header">
+    <div class="check-circle">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5">
+        <polyline points="20,6 9,17 4,12"/>
+      </svg>
+    </div>
+    <h1 class="success-title">¡Turno confirmado!</h1>
+    <p class="success-sub">Se envió un recordatorio automático al paciente vía SMS y email</p>
+  </div>
+
+  <!-- Detail card -->
+  <div class="detail-card">
+    <div class="detail-card_header">
+      <span class="detail-icon">📋</span>
+      <h2 class="detail-card_title">Detalle del turno</h2>
+    </div>
+
+    <div class="detail-rows">
+      <div class="detail-row">
+        <span class="detail-label">Paciente</span>
+        <span class="detail-value">{{ turno.candidato }} · DNI {{ turno.dni }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Tipo de examen</span>
+        <span class="exam-badge">{{ turno.tipoExamen }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Clínica</span>
+        <span class="detail-value">{{ turno.clinica }} · {{ turno.direccionClinica }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Fecha y hora</span>
+        <span class="detail-value">{{ turno.fechaHora }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Número de turno</span>
+        <span class="turno-number">#{{ turno.numeroTurno }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Estado</span>
+        <span class="status-badge">
+          <span class="status-dot"></span>
+          Confirmado
+        </span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Notificación al paciente</span>
+        <span class="notif-badge">✓ SMS y email enviados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <a routerLink="/dashboard" class="btn-secondary">← Volver al dashboard</a>
+    <button class="btn-primary" (click)="nuevoTurno()">+ Nuevo turno</button>
+  </div>
+
+  <!-- Cancel -->
+  <div class="cancel-area" *ngIf="!cancelado">
+    <button class="btn-cancel" (click)="cancelarTurno()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+      Cancelar este turno
+    </button>
+  </div>
+
+    <!-- Cancelled state -->
+  <div class="cancelled-notice" *ngIf="cancelado">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+    </svg>
+    Turno cancelado correctamente. Podés solicitar uno nuevo cuando quieras.
+  </div>
+</div>

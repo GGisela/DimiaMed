@@ -1,0 +1,86 @@
+<div class="login-wrapper">
+  <div class="login-bg">
+    <div class="bg-circle bg-circle--1"></div>
+    <div class="bg-circle bg-circle--2"></div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-card__header">
+      <div class="logo">
+        <div class="logo__icon">
+          <img src="/DimiaMed.jpg" class="logo_image" alt="DimiaMed Logo">
+        </div>
+        <span class="logo__text">DimiaMed</span>
+      </div>
+    </div>
+
+    <div class="login-card__body">
+      <h1 class="login-card__title">Bienvenido de vuelta</h1>
+      <p class="login-card__subtitle">Ingresá con tu cuenta corporativa</p>
+
+      <div *ngIf="error()" class="alert alert--error">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        {{ error() }}
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="tu@correo.com"
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Contraseña</label>
+          <div class="input-wrapper">
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              class="form-control"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" class="input-toggle" (click)="togglePassword()" tabindex="-1">
+              <svg *ngIf="!showPassword()" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg *ngIf="showPassword()" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-hint">
+            <a href="#" class="form-link" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+          <span *ngIf="!loading()">Ingresar →</span>
+          <span *ngIf="loading()" class="loading-dots">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <div class="login-card__footer">
+      <p class="demo-hint">
+        <strong>Demo:</strong> rrhh&#64;test.com / cualquier contraseña
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,302 @@
+.dashboard {
+  margin: -2rem;  
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  background: #f1f5f9;
+}
+
+/* ───────────────────────────────────────── Header ──────────────────────────────────────────────── */
+.dash-header {
+  background: linear-gradient(160deg, #0a3a5a 0%, #0f5c80 60%, #1a7a9e 100%);
+  padding: 2rem 1.5rem 4.5rem;
+  position: relative;
+}
+
+.dash-container {
+  display: grid;
+  grid-template-columns: repeat(3, 480px);
+  justify-content: space-around;
+  margin-top: 24px;
+}
+
+.greeting {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+  margin: 0 0 0.15rem;
+}
+
+.company-name {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.compliance-card {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(4px);
+  height: 150px;
+}
+
+.compliance-label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.compliance-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.compliance-detail {
+  font-size: 0.80rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.compliance-container{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.compliance-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.compliance-icon {
+  margin-left: auto;
+  font-size: 2rem;
+}
+
+.compliance-status {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.compliance-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+}
+
+/* ───────────────────────────────────────── Employee section ──────────────────────────────────────────────── */
+
+.employees-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  gap: 12px;
+  margin-top: 12px;
+}
+
+// ─────────────────── Container ───────────────────
+
+.section-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.search-request-container {
+  display: flex;
+  align-items: center;
+  justify-content: end; 
+  gap: 10px;
+  padding-right: 15px;
+}
+
+// ────────── Title ──────────
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #363b47;
+  margin-left: 15px;
+  align-items: center;
+}
+
+// ────────── Searcher ──────────
+.buscador {
+  justify-self: end;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .size-6 {
+    width: 16px;
+    height: 16px;
+    color: #464b55;
+    position: absolute;
+    left: 10px;
+  }
+
+  .buscador_input {
+    padding: 8px 14px 8px 36px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #374151;
+    outline: none;
+    width: 260px;
+    transition: border-color 0.2s;
+
+    .buscador_input::placeholder {
+      color: #6b7280;
+    }
+    
+    .buscador_input:focus {
+      border-color: #0d7a8a;
+    }
+  }
+}
+
+// ────────── Buttons ──────────
+.request-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s, color 0.2s;
+  border: none;
+  background: #0d7a8a;
+  color: #ffffff;
+  
+  &:hover { /* El & en SCSS, sirve para evitar repetir el nombre de la clase y para crear variantes de una forma más limpia */
+    background: #074e5a;
+  }
+}
+
+.detail-btn {
+  background: rgb(240, 244, 247);
+  color: rgb(92, 112, 124);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s, color 0.2s;
+}
+
+.detail-btn:hover {
+  background: rgb(204, 212, 217);
+}
+
+// ─────────────────── Table ───────────────────
+.employee-table {
+  width: 95%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  margin-top: 10px;
+  background: #ffffff;
+  margin: 10px auto 0;
+
+  thead tr {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 16px;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover td {
+    background: #f9fafb;
+  }
+}
+
+// ─────────────────── Column styles ───────────────────
+.col-nombre {
+  font-weight: 600;
+  color: #111827;
+}
+
+.col-dni {
+  color: #6b7280;
+}
+
+.preocupacional {
+  background: rgb(227, 242, 253);
+  color: rgb(29, 107, 194);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.períodico {
+  background: rgb(243, 229, 245);
+  color: rgb(106, 27, 154);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.egreso {
+  background: rgb(255, 243, 224);
+  color: rgb(233, 103, 31);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.apto {
+  background: rgb(232, 245, 233);
+  color: rgb(50, 127, 54);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.pendiente {
+  background: rgb(255, 249, 196);
+  color: rgb(246, 137, 37);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
+
+.sin-turno {
+  background: rgb(234, 244, 251);
+  color: rgb(23, 97, 131);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 500;
+  align-items: center;
+}
