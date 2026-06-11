@@ -39,12 +39,12 @@
     </div>
   </div>
   
-  <!-- ───────────────────────────────────────── Employee section ──────────────────────────────────────────────── -->
+  <!-- ───────────────────────────────────────── Seccion de empleados ──────────────────────────────────────────────── -->
   <div class="employees-section">   
 
     <div class= "section-header">
       <h2 class="section-title">Empleados recientes</h2>
-    <!-- ──────────────────── Searcher ──────────────────── -->
+    <!-- ──────────────────── Buscador ──────────────────── -->
     <div class="search-request-container">
     <div class="buscador">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -65,7 +65,7 @@
       </div>
       </div>
       </div>
-      <!-- ──────────────────── Table ──────────────────── -->
+      <!-- ──────────────────── Tabla ──────────────────── -->
 
     <table class="employee-table">
       <thead>
@@ -111,7 +111,7 @@
           <td>
             <button
               [ngClass]="empleado.estado === 'Apto' ? 'detail-btn' : 'request-btn'"
-              (click)="empleado.estado !== 'Apto' && asignarTurno()"
+              (click)="empleado.estado === 'Apto' ? verDetalle(empleado) : asignarTurno()"
             >
               {{ empleado.estado === 'Apto' ? 'Ver detalle' : 'Asignar turno' }}
             </button>

@@ -11,7 +11,7 @@
     <p class="page-sub">Completá los datos y seleccioná una clínica disponible</p>
   </div>
 
-  <!-- Form card -->
+  <!--Card Formulario -->
   <div class="card">
     <div class="card__header">
       <span class="card__icon">📋</span>
@@ -22,6 +22,7 @@
           <div class="form-group">
           <label class="form-label">Empleado</label>
           <select class="form-control" [(ngModel)]="form.empleado" name="empleado">
+            <option value="" disabled selected>Seleccione un empleado...</option>
             <option *ngFor="let e of empleados" [value]="e.value">{{ e.label }}</option>
           </select>
         </div>
@@ -62,7 +63,7 @@
     </div>
   </div>
 
-  <!-- Clinics list -->
+  <!--Lista de Clinicas-->
   <div class="section-header">
     <h2 class="section-title">
       <span class="section-icon">🏥</span>
@@ -141,7 +142,7 @@
     </div>
   </div>
 
-  <!-- Confirm button -->
+  <!--Boton confirmar-->
   <div class="confirm-bar" *ngIf="!loading()">
     <div class="confirm-bar__info" *ngIf="clinicaSeleccionada">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f5c80" stroke-width="2">

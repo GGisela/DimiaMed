@@ -96,8 +96,36 @@ export class SolicitarTurnoComponent implements OnInit {
 
   confirmar(): void {
     if (!this.clinicaSeleccionada) return;
-    const candidato = this.auth.currentCandidato();
-    if (!candidato) return;
+    // 1. Mapeamos los datos según el empleado que se seleccionó en el formulario html
+    let nombreEmpleado = 'Carlos';
+    let apellidoEmpleado = 'Rodríguez';
+    let dniEmpleado = '28.104.556';
+    let idEmpleado = 1;
+
+    if (this.form.empleado === 'empleado2') {
+      nombreEmpleado = 'Valeria';
+      apellidoEmpleado = 'López';
+      dniEmpleado = '35.892.341';
+      idEmpleado = 2;
+    } else if (this.form.empleado === 'empleado3') {
+      nombreEmpleado = 'Ana';
+      apellidoEmpleado = 'Fernández';
+      dniEmpleado = '40.115.772';
+      idEmpleado = 3;
+    }
+
+    // 2. Intentamos buscar si hay un candidato real en sesión
+    const candidatoSesion = this.auth.currentCandidato();
+    
+    // 3. Si hay sesión real la usamos, sino armamos el objeto dinámico con el empleado elegido
+    const candidato = candidatoSesion ? candidatoSesion : { 
+      id: idEmpleado,
+      nombre: nombreEmpleado,
+      apellido: apellidoEmpleado,
+      dni: dniEmpleado,
+      zonaResidencia: this.form.zona
+    };
+
     this.submitting.set(true);
     this.turnoService.solicitarTurno(
       {
@@ -117,6 +145,7 @@ export class SolicitarTurnoComponent implements OnInit {
       },
       error: () => this.submitting.set(false)
     });
+  
   }
 
 

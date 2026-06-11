@@ -67,7 +67,15 @@ export class DashboardComponent {
   };
 
   verDetalle(empleado: Empleado) {
-    console.log(`Ver detalle de ${empleado.nombre}`);
+    const mensaje = `📋 DETALLE DEL TURNO CONFIRMADO\n\n` +
+                    `👤 Empleado: ${empleado.nombre}\n` +// Lo mostramos en un cartel flotante del navegador
+                    `🪪 DNI: ${empleado.dni}\n` +
+                    `🩺 Tipo de Examen: ${empleado.tipoExamen}\n` +
+                    `🏥 Clínica Asignada: ${empleado.clinica}\n\n` +
+                    `✅ Estado: ${empleado.estado} MÉDICO\n` +
+                    `Resultados cargados correctamente en el sistema.`;
+                    
+    alert(mensaje);
   }
   
 
