@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
 import { Candidato, LoginRequest, LoginResponse, Usuario, Empresa } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -21,8 +20,6 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    // Mock auth - replace with real endpoint when backend implements it
-    // return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, credentials);
     return this.mockLogin(credentials);
   }
 
