@@ -61,7 +61,11 @@
         
       </div>
       <div class="request-container">
-      <button class="request-btn">Solicitar turno</button>
+      <button
+        class="request-btn"
+        routerLink="/solicitar-turno">
+          Solicitar turno
+      </button>
       </div>
       </div>
       </div>
@@ -81,7 +85,7 @@
       <tbody>
         @for (empleado of empleadosFiltrados(); track empleado.dni) { <!-- el track nos ayuda a identificar cada fila por el DNI, se realiza el for para que recorra el array de empleados -->
         <tr>
-          <td class="col-nombre">{{ empleado.nombre}}</td>
+          <td class="col-nombre">{{ empleado.nombre}}</td> <!-- interpolación -->
           <td class="col-dni">{{ empleado.dni }}</td>
           <td>
             <span
@@ -110,9 +114,8 @@
           </td>
           <td>
             <button
-              [ngClass]="empleado.estado === 'Apto' ? 'detail-btn' : 'request-btn'"
-              (click)="empleado.estado === 'Apto' ? verDetalle(empleado) : asignarTurno()"
-            >
+              [ngClass]="empleado.estado === 'Apto' ? 'detail-btn' : 'request-btn'" 
+              (click)="empleado.estado === 'Apto' ? verDetalle(empleado) : asignarTurno()"> <!-- Agrega las clases detail-btn o request-btn según si está apto -->
               {{ empleado.estado === 'Apto' ? 'Ver detalle' : 'Asignar turno' }}
             </button>
           </td>
