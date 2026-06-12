@@ -1,2 +1,2 @@
 # DimiaMed
-trabajo en conjunto IFTS24/IFTS9
+Es una plataforma desarrollada con el objetivo de optimizar y automatizar procesos administrativos, reduciendo la necesidad de tareas manuales y mejorando la eficiencia operativa. Este proyecto fue llevado a cabo de manera colaborativa entre analistas del IFTS N.º 9 y desarrolladores del IFTS N.º 24, combinando conocimientos de análisis funcional y desarrollo de software para brindar una solución innovadora orientada al sector de la salud.
